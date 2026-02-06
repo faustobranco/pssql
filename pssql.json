@@ -1,0 +1,20 @@
+{
+  "postgresql": [
+    {
+      "name": "Postgres Prod",
+      "host": "myprodpostgresql.eu-central-1.rds.amazonaws.com",
+      "port": 5432,
+      "database": "postgres",
+      "user": "admin",
+      "cli": "pgcli"
+    },
+    {
+      "name": "Postgres Dev",
+      "host": "mydevpostgresql.eu-central-1.rds.amazonaws.com",
+      "port": 5432,
+      "database": "postgres",
+      "user": "admin",      
+      "cli": "pgcli"
+    }
+  ]
+}
