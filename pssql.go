@@ -15,7 +15,7 @@ import (
 	"github.com/manifoldco/promptui"
 )
 
-var version = "1.0.0"
+var version = "1.0.2"
 
 func main() {
 	home, _ := os.UserHomeDir()
