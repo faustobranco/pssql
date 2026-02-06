@@ -76,25 +76,6 @@ JSON
 
 ## Usage
 
-Command
-
-Description
-
-`pssql`
-
-Open interactive menu
-
-`pssql --connect "Name"`
-
-Connect directly to a specific server
-
-`pssql --list`
-
-List all configured servers
-
-`pssql --config ./alt.json`
-
-Use a different config file
 
 |Command| Description |
 |--|--|
