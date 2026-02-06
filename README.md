@@ -4,7 +4,14 @@
 
 [![Go Report Card](https://goreportcard.com/badge/github.com/faustobranco/pssql)](https://goreportcard.com/report/github.com/faustobranco/pssql)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+![GitHub License](https://img.shields.io/github/license/faustobranco/pssql)
+
 ![Views](https://hits.dwyl.com/faustobranco/pssql.svg)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/faustobranco/pssql)
+![Homebrew](https://img.shields.io/badge/homebrew-tap-orange)
+
+
+
 
 
 **pssql**  is a lightweight CLI connection manager for PostgreSQL. It allows you to quickly switch between multiple database servers defined in a JSON configuration, supporting both interactive selection and direct connection flags.
