@@ -2,7 +2,7 @@
 
 [](https://github.com/faustobranco/pssql#pssql)
 
-[![Go Version](https://img.shields.io/github/go-mod/go-version/youruser/pssql)](https://golang.org)
+[![Go Report Card](https://goreportcard.com/badge/github.com/faustobranco/pssql)](https://goreportcard.com/report/github.com/faustobranco/pssql)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 ![Views](https://hits.dwyl.com/faustobranco/pssql.svg)
 
