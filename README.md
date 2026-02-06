@@ -4,6 +4,9 @@
 
 [![Go Version](https://img.shields.io/github/go-mod/go-version/youruser/pssql)](https://golang.org)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+![Views](https://hits.dwyl.com/faustobranco/pssql.svg)
+
+
 **pssql**  is a lightweight CLI connection manager for PostgreSQL. It allows you to quickly switch between multiple database servers defined in a JSON configuration, supporting both interactive selection and direct connection flags.
 
 [Image of CLI command line interface with database connections]
