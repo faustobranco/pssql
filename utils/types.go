@@ -12,14 +12,19 @@ type Struct_Server struct {
 	Port     int    `json:"port"`
 	Database string `json:"database"`
 	User     string `json:"user"`
+	Auth     string `json:"auth"`
 	CLI      string `json:"cli"`
+	AWSIAM   struct {
+		Region  string `json:"region"`
+		Profile string `json:"profile"`
+	} `json:"aws-iam,omitempty"`
 }
 
-// UnmarshalJSON aplica os valores padrão durante a leitura do ficheiro
 func (s *Struct_Server) UnmarshalJSON(data []byte) error {
 	type obj_Server_temp Struct_Server
 
 	aux_temp := &obj_Server_temp{
+		Auth: "password",
 		CLI:  "pgcli",
 		Port: 5432,
 	}

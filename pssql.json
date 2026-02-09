@@ -15,6 +15,19 @@
       "database": "postgres",
       "user": "admin",      
       "cli": "pgcli"
-    }
+    },
+		{
+			"name": "Postgres Test - AWS",
+			"host": "mytestpostgresql.jio43u089fge.eu-central-1.rds.amazonaws.com",
+			"port": 5432,
+			"database": "postgres",
+			"user": "your.user",
+			"auth": "aws-iam",
+			"aws-iam": {
+				"region": "eu-central-1",
+				"profile": "test"
+			},
+			"cli": "pgcli"
+		}
   ]
 }

@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"context"
 	"encoding/json"
 	"flag"
 	"fmt"
@@ -12,10 +13,13 @@ import (
 	"pssql/utils"
 	"strings"
 
+	"github.com/aws/aws-sdk-go-v2/config"
+	"github.com/aws/aws-sdk-go-v2/feature/rds/auth"
 	"github.com/manifoldco/promptui"
+	"github.com/pterm/pterm"
 )
 
-var version = "1.0.2"
+var version = "1.1.0"
 
 func main() {
 	home, _ := os.UserHomeDir()
@@ -44,13 +48,13 @@ func main() {
 		return
 	}
 	if *versionFlag {
-		fmt.Println("pssql version", version)
+		pterm.Info.Println("pssql version", version)
 		return
 	}
 
 	jsonFile, err := os.Open(*configFlag)
 	if err != nil {
-		fmt.Printf("Error: %v\n", err)
+		pterm.Error.Printf("Error: %v\n", err)
 		return
 	}
 	defer jsonFile.Close()
@@ -89,6 +93,7 @@ func main() {
 
 	var obj_selected utils.Struct_Server
 	directConnect := *connectFlag != ""
+	aws_token := ""
 
 	for {
 		if directConnect {
@@ -101,7 +106,7 @@ func main() {
 				}
 			}
 			if !found {
-				fmt.Printf("Error: Server '%s' not found.\n", *connectFlag)
+				pterm.Error.Printf("Server '%s' not found.\n", *connectFlag)
 				return
 			}
 			directConnect = false
@@ -115,11 +120,11 @@ func main() {
 		}
 
 		if obj_selected.Name == "" || obj_selected.Host == "" {
-			fmt.Println("\n[ERROR] Invalid server: Name or Host missing.")
+			pterm.Error.Println("Invalid server: Name or Host missing.")
 			if *connectFlag != "" {
 				return
 			}
-			fmt.Println("Press Enter to go back...")
+			pterm.Info.Println("Press Enter to go back...")
 			bufio.NewReader(os.Stdin).ReadBytes('\n')
 			continue
 		}
@@ -131,7 +136,7 @@ func main() {
 
 			result, err := promptUser.Run()
 			if err != nil {
-				fmt.Printf("Error: %v\n", err)
+				pterm.Error.Printf("%v\n", err)
 				return
 			}
 			obj_selected.User = result
@@ -150,10 +155,45 @@ func main() {
 			obj_selected.Database = result
 		}
 
+		if obj_selected.Auth == "aws-iam" {
+			if obj_selected.AWSIAM.Region == "" {
+				pterm.Error.Printf("The authentication is 'aws-iam', but the 'aws-iam' (Region) setting is empty in the JSON for the server. '%s'.\n", obj_selected.Name)
+				pterm.Info.Printf("Press [ENTER] to continue...")
+				bufio.NewReader(os.Stdin).ReadBytes('\n')
+				continue
+			}
+			obj_ctx := context.TODO()
+			cfg, err := config.LoadDefaultConfig(obj_ctx, config.WithRegion(obj_selected.AWSIAM.Region), config.WithSharedConfigProfile(obj_selected.AWSIAM.Profile))
+			if err != nil {
+				pterm.Error.Printf("Error loading AWS config: %v\n", err)
+				return
+			}
+
+			endpoint := fmt.Sprintf("%s:%v", obj_selected.Host, obj_selected.Port)
+
+			token, err := auth.BuildAuthToken(
+				obj_ctx,
+				endpoint,
+				obj_selected.AWSIAM.Region,
+				obj_selected.User,
+				cfg.Credentials,
+			)
+
+			pterm.Info.Printf("generating AWS IAM token...")
+
+			if err != nil {
+				pterm.Error.Printf("Error generating AWS IAM token: %v\n", err)
+				return
+			}
+			aws_token = token
+		}
 		cmd := exec.Command(obj_selected.CLI, "--host", obj_selected.Host, "--username", obj_selected.User, "--dbname", obj_selected.Database)
+		if aws_token != "" {
+			cmd.Env = append(os.Environ(), fmt.Sprintf("PGPASSWORD=%s", aws_token))
+		}
 		cmd.Stdin, cmd.Stdout, cmd.Stderr = os.Stdin, os.Stdout, os.Stderr
 		if err := cmd.Run(); err != nil {
-			fmt.Printf("Run error: %v. Press Enter...", err)
+			pterm.Error.Printf("Run error: %v. Press Enter...", err)
 			bufio.NewReader(os.Stdin).ReadBytes('\n')
 			continue
 		}
