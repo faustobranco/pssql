@@ -1,13 +1,12 @@
-module pssql
+module github.com/faustobranco/pssql
 
-go 1.23.3
+go 1.25.7
 
 require (
-	"github.com/aws/aws-sdk-go-v2/config"
-	"github.com/aws/aws-sdk-go-v2/feature/rds/auth"
-	"github.com/manifoldco/promptui"
-	"github.com/pterm/pterm"
-	
+	github.com/aws/aws-sdk-go-v2/config v1.32.7
+	github.com/aws/aws-sdk-go-v2/feature/rds/auth v1.6.17
+	github.com/manifoldco/promptui v0.9.0
+	github.com/pterm/pterm v0.12.82
 )
 
 require (
@@ -32,7 +31,6 @@ require (
 	github.com/gookit/color v1.5.4 // indirect
 	github.com/lithammer/fuzzysearch v1.1.8 // indirect
 	github.com/mattn/go-runewidth v0.0.16 // indirect
-	github.com/pterm/pterm v0.12.82 // indirect
 	github.com/rivo/uniseg v0.4.7 // indirect
 	github.com/xo/terminfo v0.0.0-20220910002029-abceb7e1c41e // indirect
 	golang.org/x/sys v0.33.0 // indirect
