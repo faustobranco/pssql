@@ -1,5 +1,5 @@
 
-# pssql
+# pssql - Text-based user interfaces (TUI) 
 
   
 
