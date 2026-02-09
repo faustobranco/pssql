@@ -10,8 +10,9 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
-	"pssql/utils"
 	"strings"
+
+	"github.com/faustobranco/pssql/utils"
 
 	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/feature/rds/auth"
@@ -19,7 +20,7 @@ import (
 	"github.com/pterm/pterm"
 )
 
-var version = "1.1.2"
+var version = "1.1.3"
 
 func main() {
 	home, _ := os.UserHomeDir()
