@@ -19,7 +19,7 @@ import (
 	"github.com/pterm/pterm"
 )
 
-var version = "1.1.1"
+var version = "1.1.2"
 
 func main() {
 	home, _ := os.UserHomeDir()
