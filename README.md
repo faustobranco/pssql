@@ -92,7 +92,7 @@
   
 
 ```
-brew tap youruser/tap
+brew tap faustobranco/devops
 brew install pssql
 ```
 
