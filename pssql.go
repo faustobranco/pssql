@@ -20,7 +20,7 @@ import (
 	"github.com/pterm/pterm"
 )
 
-var version = "1.1.3"
+var version = "1.1.4"
 
 func main() {
 	home, _ := os.UserHomeDir()
@@ -85,7 +85,7 @@ func main() {
 	}
 
 	prompt := promptui.Select{
-		Label: "Select Server", Items: obj_Hosts.Servers, Templates: templates, Size: 10,
+		Label: "Select Server", Items: obj_Hosts.Servers, Templates: templates, Size: 20,
 		Searcher: func(input string, index int) bool {
 			h := obj_Hosts.Servers[index]
 			return strings.Contains(strings.ToLower(h.Name+" "+h.Host), strings.ToLower(input))
